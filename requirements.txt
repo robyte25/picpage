@@ -1,0 +1,4 @@
+Flask
+g4f
+Pillow
+requests
