@@ -2,3 +2,4 @@ Flask
 g4f
 Pillow
 requests
+typing_extensions
