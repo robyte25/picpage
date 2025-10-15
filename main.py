@@ -1,7 +1,7 @@
 import os
 import base64
 from io import BytesIO
-from flask import Flask, request, render_template_string
+from flask import Flask, request, render_template_string, send_file
 from g4f.client import Client
 from PIL import Image
 
@@ -26,10 +26,7 @@ HTML_PAGE = """
     padding: 2rem;
   }
   h1 { color: #26d07b; }
-  form {
-    margin: 1.5rem auto;
-    max-width: 500px;
-  }
+  form { margin: 1.5rem auto; max-width: 500px; }
   input[type=text] {
     width: 90%;
     padding: 0.8rem;
@@ -46,10 +43,9 @@ HTML_PAGE = """
     font-size: 1rem;
     color: #000;
     cursor: pointer;
+    margin: 0.5rem;
   }
-  button:hover {
-    background: #1aa868;
-  }
+  button:hover { background: #1aa868; }
   img {
     margin-top: 2rem;
     max-width: 90%;
@@ -68,6 +64,10 @@ HTML_PAGE = """
   </form>
   {% if image_data %}
     <img src="data:image/png;base64,{{ image_data }}" alt="Generiertes Bild">
+    <form method="POST" action="/download">
+      <input type="hidden" name="image_data" value="{{ image_data }}">
+      <button type="submit">⬇️ Bild herunterladen</button>
+    </form>
   {% elif error %}
     <p style="color:red;">⚠️ {{ error }}</p>
   {% endif %}
@@ -104,6 +104,20 @@ def home():
         except Exception as e:
             return render_template_string(HTML_PAGE, error=str(e))
     return render_template_string(HTML_PAGE)
+
+@app.route("/download", methods=["POST"])
+def download():
+    image_data = request.form.get("image_data")
+    if not image_data:
+        return "Kein Bild zum Herunterladen", 400
+    img_bytes = BytesIO(base64.b64decode(image_data))
+    img_bytes.seek(0)
+    return send_file(
+        img_bytes,
+        mimetype="image/png",
+        as_attachment=True,
+        download_name="ki_bild.png"
+    )
 
 # =============================
 # Start
