@@ -8,15 +8,15 @@ from PIL import Image
 app = Flask(__name__)
 
 # =============================
-# HTML Vorlage
+# HTML Template
 # =============================
 HTML_PAGE = """
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>🎨 KI Bildgenerator</title>
+<title>🎨 AI Image Generator</title>
 <style>
   body {
     background: linear-gradient(135deg, #000010, #001a33);
@@ -52,33 +52,42 @@ HTML_PAGE = """
     border-radius: 12px;
     box-shadow: 0 0 20px rgba(255,255,255,0.15);
   }
+  footer {
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    color: #ccc;
+  }
 </style>
 </head>
 <body>
-  <h1>🎨 KI Bildgenerator</h1>
-  <p>Gib einen Prompt ein, und ich male dein Bild aus reiner Vorstellungskraft.</p>
+  <h1>🎨 AI Image Generator</h1>
+  <p>Enter a prompt, and I’ll paint your vision straight from imagination.</p>
+  <p><strong>This service is completely free — supported by ads.</strong></p>
   <form method="POST">
-    <input type="text" name="prompt" placeholder="z. B. Ein Fuchs im Neonwald bei Nacht" required>
+    <input type="text" name="prompt" placeholder="e.g. A fox in a neon forest at night" required>
     <br>
-    <button type="submit">Bild generieren</button>
+    <button type="submit">Generate Image</button>
   </form>
   {% if image_data %}
-    <img src="data:image/png;base64,{{ image_data }}" alt="Generiertes Bild">
+    <img src="data:image/png;base64,{{ image_data }}" alt="Generated Image">
     <form method="POST" action="/download">
       <input type="hidden" name="image_data" value="{{ image_data }}">
-      <button type="submit">⬇️ Bild herunterladen</button>
+      <button type="submit">⬇️ Download Image</button>
     </form>
   {% elif error %}
     <p style="color:red;">⚠️ {{ error }}</p>
   {% endif %}
+  <footer>
+    <p>© 2025 Free AI Art Generator — Powered by Open Models & Ad Revenue</p>
+  </footer>
 </body>
 </html>
 """
 
 # =============================
-# Bildgenerierung
+# Image Generation
 # =============================
-def generiere_bild(prompt: str):
+def generate_image(prompt: str):
     client = Client()
     try:
         result = client.images.generate(
@@ -89,7 +98,7 @@ def generiere_bild(prompt: str):
         image_data = result.data[0].b64_json
         return image_data
     except Exception as e:
-        raise RuntimeError(f"Fehler bei der Bildgenerierung: {e}")
+        raise RuntimeError(f"Error during image generation: {e}")
 
 # =============================
 # Flask Routes
@@ -99,7 +108,7 @@ def home():
     if request.method == "POST":
         prompt = request.form.get("prompt")
         try:
-            image_data = generiere_bild(prompt)
+            image_data = generate_image(prompt)
             return render_template_string(HTML_PAGE, image_data=image_data)
         except Exception as e:
             return render_template_string(HTML_PAGE, error=str(e))
@@ -109,18 +118,18 @@ def home():
 def download():
     image_data = request.form.get("image_data")
     if not image_data:
-        return "Kein Bild zum Herunterladen", 400
+        return "No image available for download", 400
     img_bytes = BytesIO(base64.b64decode(image_data))
     img_bytes.seek(0)
     return send_file(
         img_bytes,
         mimetype="image/png",
         as_attachment=True,
-        download_name="ki_bild.png"
+        download_name="ai_image.png"
     )
 
 # =============================
-# Start
+# Start Server
 # =============================
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
