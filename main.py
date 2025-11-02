@@ -17,30 +17,20 @@ HTML_PAGE = """
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-
-  <!-- SEO Meta-Tags -->
   <title>Free AI Image Generator – Create Stunning Art from Text</title>
   <meta name="description" content="Free AI image generator – Create stunning artwork from text prompts using open models.">
   <meta name="keywords" content="AI image generator, free AI art, text to image, flux model, generate images, online art tool">
   <meta name="author" content="Free AI Art Generator">
-
-  <!-- Open Graph Tags -->
   <meta property="og:title" content="Free AI Image Generator">
   <meta property="og:description" content="Create stunning AI-generated images from text prompts – completely free.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://your-app-name.onrender.com/">
   <meta property="og:image" content="https://your-app-name.onrender.com/static/preview.png">
-
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Free AI Image Generator">
   <meta name="twitter:description" content="Create stunning AI-generated images from text prompts – completely free.">
   <meta name="twitter:image" content="https://your-app-name.onrender.com/static/preview.png">
-
-  <!-- Canonical URL -->
   <link rel="canonical" href="https://your-app-name.onrender.com/">
-
-  <!-- Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -54,11 +44,8 @@ HTML_PAGE = """
     }
   }
   </script>
-
-  <!-- Google Ads -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1636994236720420"
      crossorigin="anonymous"></script>
-
   <style>
     body {
       background: linear-gradient(135deg, #000010, #001a33);
@@ -177,73 +164,6 @@ def robots():
 @app.route("/sitemap.xml")
 def sitemap():
     return send_file("sitemap.xml", mimetype="application/xml")
-
-# =============================
-# Start Server
-# =============================
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port)    <button type="submit">Generate Image</button>
-  </form>
-  {% if image_data %}
-    <img src="data:image/png;base64,{{ image_data }}" alt="Generated Image">
-    <form method="POST" action="/download">
-      <input type="hidden" name="image_data" value="{{ image_data }}">
-      <button type="submit">⬇️ Download Image</button>
-    </form>
-  {% elif error %}
-    <p style="color:red;">⚠️ {{ error }}</p>
-  {% endif %}
-  <footer>
-    <p>© 2025 Free AI Art Generator — Powered by Open Models & Ad Revenue</p>
-  </footer>
-</body>
-</html>
-"""
-
-# =============================
-# Image Generation
-# =============================
-def generate_image(prompt: str):
-    client = Client()
-    try:
-        result = client.images.generate(
-            model="flux",
-            prompt=prompt,
-            response_format="b64_json"
-        )
-        image_data = result.data[0].b64_json
-        return image_data
-    except Exception as e:
-        raise RuntimeError(f"Error during image generation: {e}")
-
-# =============================
-# Flask Routes
-# =============================
-@app.route("/", methods=["GET", "POST"])
-def home():
-    if request.method == "POST":
-        prompt = request.form.get("prompt")
-        try:
-            image_data = generate_image(prompt)
-            return render_template_string(HTML_PAGE, image_data=image_data)
-        except Exception as e:
-            return render_template_string(HTML_PAGE, error=str(e))
-    return render_template_string(HTML_PAGE)
-
-@app.route("/download", methods=["POST"])
-def download():
-    image_data = request.form.get("image_data")
-    if not image_data:
-        return "No image available for download", 400
-    img_bytes = BytesIO(base64.b64decode(image_data))
-    img_bytes.seek(0)
-    return send_file(
-        img_bytes,
-        mimetype="image/png",
-        as_attachment=True,
-        download_name="ai_image.png"
-    )
 
 # =============================
 # Start Server
