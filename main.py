@@ -15,6 +15,7 @@ HTML_PAGE = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="google-site-verification" content="vMYd9mqB3iNJGXUUkfZDZNvHrfpi0E38GOYuyDnldf4" />
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Free AI Image Generator – Create Stunning Art from Text</title>
