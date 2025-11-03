@@ -25,19 +25,19 @@ HTML_PAGE = """
   <meta property="og:title" content="Free AI Image Generator">
   <meta property="og:description" content="Create stunning AI-generated images from text prompts – completely free.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://your-app-name.onrender.com/">
-  <meta property="og:image" content="https://your-app-name.onrender.com/static/preview.png">
+  <meta property="og:url" content="https://picpage.onrender.com/">
+  <meta property="og:image" content="https://picpage.onrender.com/static/preview.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Free AI Image Generator">
   <meta name="twitter:description" content="Create stunning AI-generated images from text prompts – completely free.">
-  <meta name="twitter:image" content="https://your-app-name.onrender.com/static/preview.png">
-  <link rel="canonical" href="https://your-app-name.onrender.com/">
+  <meta name="twitter:image" content="https://picpage.onrender.com/static/preview.png">
+  <link rel="canonical" href="https://picpage.onrender.com/">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Free AI Art Generator",
-    "url": "https://your-app-name.onrender.com",
+    "url": "https://picpage.onrender.com",
     "description": "Create stunning AI-generated images from text prompts using open models – completely free.",
     "creator": {
       "@type": "Organization",
@@ -107,6 +107,8 @@ HTML_PAGE = """
   {% elif error %}
     <p style="color:red;">⚠️ {{ error }}</p>
   {% endif %}
+  <h2>If something goes wrong, please get in touch with me at rvkdrive@gmail.com</h2>
+  <h3>Feel free to share any feedback — I’d love to hear it!</h3>
   <footer>
     <p>© 2025 Free AI Art Generator — Powered by Open Models & Ad Revenue</p>
   </footer>
