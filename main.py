@@ -16,6 +16,7 @@ HTML_PAGE = """
 <html lang="en">
 <head>
 <meta name="monetag" content="0247d398eb0826192314b034aa3033e7">
+<script src="https://fpyf8.com/88/tag.min.js" data-zone="182865" async data-cfasync="false"></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Free AI Image Generator – Create Stunning Art from Text</title>
