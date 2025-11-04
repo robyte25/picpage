@@ -20,7 +20,7 @@ HTML_PAGE = """
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Free AI Image Generator – Create Stunning Art from Text</title>
   <meta name="description" content="Free AI image generator – Create stunning artwork from text prompts using open models.">
-  <meta name="keywords" content="AI image generator, free AI art, text to image, flux model, generate images, online art tool">
+  <meta name="keywords" content="AI image generator, free AI art, picpage, text to image, flux model, generate images, online art tool">
   <meta name="author" content="Free AI Art Generator">
   <meta property="og:title" content="Free AI Image Generator">
   <meta property="og:description" content="Create stunning AI-generated images from text prompts – completely free.">
