@@ -14,6 +14,7 @@ HTML_PAGE = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script src="https://quge5.com/88/tag.min.js" data-zone="192758" async data-cfasync="false"></script>
    <meta name="monetag" content="0247d398eb0826192314b034aa3033e7">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
